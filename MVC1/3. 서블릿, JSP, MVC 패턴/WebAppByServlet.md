@@ -41,13 +41,6 @@ public class MemberFormServlet extends HttpServlet {
 * Member 객체를 MemberRepository에 저장(save 메서드)  
 * Member 객체를 사용해 HTML을 동적으로 만듦  
 
-### 🤔 HTML이 '동적'이란게 뭘까?
-
-정적인 웹페이지는 서버에 미리 저장된 파일이 전달되는 반면 동적인 웹페이지는 가공처리 후 **생성**되어 전달되는 것임!!   
-아래 소스코드의 html 부분에서 getId(), getUsername()과 같은 자바 코드를 넣어서 상황, 요청에 따라 상이한 웹페이지를 전달할 수 있음
-
-### 소스코드
-
 참고 : ```getParameter()```의 반환 값은 항상 스트링!
 
 ```java
@@ -88,6 +81,65 @@ public class MemberSaveServlet extends HttpServlet {
     }
 }
 ```
+
+## 3. MemberFormServlet
+
+### 💡 동작 과정
+* memberRepository.findAll() 을 통해 모든 회원을 조회
+* 회원 목록 HTML을 for 루프를 통해서 회원 수 만큼 동적으로 생성하고 응답
+
+```java
+@WebServlet(name = "memberListServlet", urlPatterns = "/servlet/members")
+public class MemberListServlet extends HttpServlet {
+    private MemberRepository memberRepository = MemberRepository.getInstance();
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        response.setContentType("text/html");
+        response.setCharacterEncoding("utf-8");
+
+        //모든 회원 조회
+        List<Member> members = memberRepository.findAll();
+        
+        // 회원 목록 HTML을 for 루프를 통해서 회원 수 만큼 동적으로 생성하고 응답
+        PrintWriter w = response.getWriter();
+        w.write("<html>");
+        w.write("<head>");
+        w.write("    <meta charset=\"UTF-8\">");
+        w.write("    <title>Title</title>");
+        w.write("</head>");
+        w.write("<body>");
+        w.write("<a href=\"/index.html\">메인</a>");
+        w.write("<table>");
+        w.write("    <thead>");
+        w.write("    <th>id</th>");
+        w.write("    <th>username</th>");
+        w.write("    <th>age</th>");
+        w.write("    </thead>");
+        w.write("    <tbody>");
+
+        for (Member member : members) {
+            w.write("    <tr>");
+            w.write("        <td>" + member.getId() + "</td>");
+            w.write("        <td>" + member.getUsername() + "</td>");
+            w.write("           <td>" + member.getAge() + "</td>");
+            w.write("    </tr>");
+        }
+        
+        w.write("    </tbody>");
+        w.write("</table>");
+        w.write("</body>");
+        w.write("</html>");
+    }
+}
+```
+
+
+### 🤔 HTML이 '동적'이란게 뭘까?
+
+정적인 웹페이지는 서버에 미리 저장된 파일이 전달되는 반면 동적인 웹페이지는 가공처리 후 **생성**되어 전달되는 것임!!   
+아래 소스코드의 html 부분에서 getId(), getUsername()과 같은 자바 코드를 넣어서 상황, 요청에 따라 상이한 웹페이지를 전달할 수 있음
+
 
 ### 💥 서블릿 단점
 
