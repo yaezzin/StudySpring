@@ -45,7 +45,8 @@ JSP는 서버 내부에서 서블릿으로 변환되는데, 이전의 ```MemberF
 <%
     // 회원 저장 서블릿 코드랑 동일하네 ?!
     MemberRepository memberRepository = MemberRepository.getInstance();
-
+    
+    // jsp는 서블릿과 달리 request, response에 대한 별도의 선언? 없이도 사용 가능!
     String username = request.getParameter("username");
     int age = Integer.parseInt(request.getParameter("age"));
     
@@ -117,10 +118,10 @@ JSP는 서버 내부에서 서블릿으로 변환되는데, 이전의 ```MemberF
   
 ## 📌 서블릿과 JSP의 불편함
   
-서블릿으로 개발할 때는 뷰 화면을 위한 HTML을 만드는 작업을 자바코드로 일일히 해줘야 했기에 매우 복잡했고,  
-JSP로 개발할 때는 뷰를 생성하는 HTML 작업은 동적으로 변경이 필요한 부분만 자바코드를 적용해주었기에 상대적으로 수월했다  
+서블릿으로 개발할 때는 뷰 화면을 위한 HTML을 자바코드로 일일히 입력 해줘야 했기에 매우 복잡했고,  
+JSP로 개발할 때는 뷰를 생성하는 HTML 작업은 동적으로 변경이 필요한 부분만 자바코드를 적용해주었기에 상대적으로 수월했다.  
 
-그럼에도 불구하고, JSP 파일을 보면 상위에는 비즈니스 로직(ex. 회원 저장, 회원 조회)이고, 나머지 하위 절반은 뷰 영역이다.  
+하지만 JSP 파일을 보면 상위에는 비즈니스 로직(ex. 회원 저장, 회원 조회)이고, 나머지 하위 절반은 뷰 영역이다.  
 이처럼 JSP가 너무 많은 역할을 하고 있다.... 
   
 비즈니스 로직은 서블릿처럼, 뷰 은 JSP처럼하는 방법은 없을까? 
