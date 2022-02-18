@@ -113,13 +113,43 @@ public class MvcMemberListServlet extends HttpServlet {
     </c:forEach>
 ```
 
-## MVC 패턴을 적용하니까
-
-비즈니스 로직과 뷰 로직이 확실히 분리 되었음 (컨트롤러와 뷰의 분리)  
-만약 내가 웹 화면에서 버튼의 위치를 바꾸고 싶으면 jsp 파일에 가서 변경해주면 된다!
-
-
 ## 📝 redirect 와 forward 차이
 
 redirect는 실제 클라이언트(웹브라우저)에 응답이 나갔다가, 클라이언트가 그 경로로 다시 요청하는 것이므로 클라이언트가 인지 가능하며 URL 경로도 실제로 변경!
 하지만 forward는 서버 내부에서 일어나는 호출이기 때문에 (함수 한번 호출 하듯!) 클라이언트가 전혀 인지하지 못함
+
+
+## 👩‍💻 MVC 패턴을 적용하니까
+
+비즈니스 로직과 뷰 로직이 확실히 **분리** 되었음 (컨트롤러와 뷰의 분리)  
+만약 내가 웹 화면에서 버튼의 위치를 바꾸고 싶으면 jsp 파일에만 가서 고쳐주면 되고, 비즈니스 로직은 건들일 필요가 없음!  
+
+
+## 💦 하지만 여전히 단점은 존재!
+
+### 너무 많은 중복
+
+* View로 이동하는 코드가 항상 호출되어야 하며, 공통처리해도 되지만 (인터페이처럼?) 여전히 메서드 호출은 계속 해줘야함
+``` java
+RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
+dispatcher.forward(request, response);
+```
+
+* viewPath의 /WEB-INF/views/ 부분이 계속 중복되며, .jsp가 아닌 타임리프같은 다른 뷰로 변경되면 전체 코드를 바꿔줘야 함
+``` java
+String viewPath = "/WEB-INF/views/new-form.jsp";
+```
+### 사용하지 않는 코드의 존재
+
+* 현재 response는 사용하지 전혀 사용하지 않고 있으며, HttpServletRequest, HttpServletResponse는 테스트 코드 작성하기도 어려움
+
+``` java
+HttpServletRequest request, HttpServletResponse response
+```
+
+### 공통처리가 어려움
+
+기능이 복잡해질 수록 컨트롤러에서 공통으로 처리하는 부분이 증가할 것임..  
+공통 기능을 메서드로 뽑아내도 결국 해당 메서드를 항상 호출 해줘야하는데 이 호출 자체도 중복!!
+
+👉 ``` 프론트 컨트롤러(Front Controller)``` 를 통해 컨트롤러 호출 전에 먼저 공통 기능을 처리해주자!
