@@ -52,7 +52,8 @@ public ModelView handle(HttpServletRequest request, HttpServletResponse response
 
 ## 정리 !
 
-FrontController는 핸들러 어댑터 인터페이스에만 의존하기 때문에 구현클래스가 어떤 것이 들어와도 코드의 구조를 바꿔줄 필요가 없음! 단순히 컨트롤러와 어댑터만 추가해주면 됨  
+FrontController는 핸들러 어댑터 인터페이스에만 의존하기 때문에 구현클래스가 어떤 것이 들어와도 코드의 구조를 바꿔줄 필요가 없음!  
+단순히 컨트롤러와 어댑터만 추가해주면 됨  
 만약 handlerMapping.put(~) 코드만 밖에서 주입하도록 바꾸어준다면 ```OCP(Open-Closed Principle)```를 완벽히 지키는 구조!!
 
 
