@@ -1,4 +1,4 @@
-# # 5-1 스프링 전체 구조
+# # 5-1. 스프링 전체 구조
 
 
 <img width="433" alt="스크린샷 2022-02-20 오후 4 08 31" src="https://user-images.githubusercontent.com/97823928/154832401-1dcfe1e7-d7d6-4947-b809-5d7ce045358f.png">
