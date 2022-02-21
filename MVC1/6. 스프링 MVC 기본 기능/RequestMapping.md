@@ -132,7 +132,7 @@ public String mappingProduces() {
     log.info("mappingProduces");
     return "ok";
 }
-
+```
 * http 요청의 accept 헤더를 기반으로 매핑
 * 맞지 않으면 HTTP 406 상태코드(Not Acceptable)을 반환
-```
+
