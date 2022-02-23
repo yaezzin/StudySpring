@@ -7,7 +7,7 @@
 
 
 ## 📌 Annotation
-[@RestController](link)  
+[@RestController](https://github.com/yaezzin/SpringMemorization/blob/main/MVC1/6.%20%EC%8A%A4%ED%94%84%EB%A7%81%20MVC%20%EA%B8%B0%EB%B3%B8%20%EA%B8%B0%EB%8A%A5/1.logging.md)  
 [@ResponseBody](link)   
 [@RequestBody](link)   
 [@RequestParam](https://github.com/yaezzin/SpringMemorization/blob/main/MVC1/5.%20%EC%8A%A4%ED%94%84%EB%A7%81%20MVC%20%EA%B5%AC%EC%A1%B0%20%EC%9D%B4%ED%95%B4/PracticalMethod.md)   
